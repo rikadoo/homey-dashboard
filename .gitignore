@@ -1,0 +1,9 @@
+# Geheimen en persoonlijke gegevens: nooit naar GitHub
+.env
+data/
+go2rtc/go2rtc.yaml
+
+# Gegenereerd
+node_modules/
+*.log
+.DS_Store
