@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#161B26">
+<title>Thuis</title>
+<link rel="stylesheet" href="/vendor/font/index.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icon-192.png">
+</head>
+<body>
+<div id="sky" aria-hidden="true"></div>
+<div id="app">
+  <aside class="side" id="side" hidden></aside>
+  <div class="main">
+  <header class="bar">
+    <div class="dash-title" id="dashTitle"></div>
+    <nav class="pages" id="pages" aria-label="Pagina's"></nav>
+    <div class="bar-right">
+      <div class="edit-actions" id="editActions" hidden>
+        <button class="btn ghost" id="btnUndo" title="Ongedaan maken"><span class="ic" data-icon="undo-2"></span><span class="lbl">Ongedaan maken</span></button>
+        <button class="btn ghost" id="btnSettings" title="Instellingen"><span class="ic" data-icon="settings"></span><span class="lbl">Instellingen</span></button>
+        <button class="btn primary" id="btnDone"><span class="ic" data-icon="check"></span><span class="lbl">Klaar</span></button>
+      </div>
+      <div class="clock" id="clock"></div>
+      <span class="conn" id="conn" title="Verbinding"></span>
+      <button class="btn icon-only ghost" id="btnEdit" title="Dashboard bewerken"><span class="ic" data-icon="pencil"></span></button>
+    </div>
+  </header>
+  <div class="chips" id="chips" hidden></div>
+
+  <main id="viewport">
+    <div class="grid" id="grid"></div>
+  </main>
+  </div>
+
+  <div class="dimmer" id="nightDim"></div>
+  <div class="toast" id="toast" role="status"></div>
+</div>
+
+<!-- Paneel voor toevoegen en instellingen -->
+<aside class="panel" id="panel" aria-hidden="true">
+  <div class="panel-head">
+    <h2 id="panelTitle"></h2>
+    <button class="btn icon-only ghost" id="panelClose" title="Sluiten"><span class="ic" data-icon="x"></span></button>
+  </div>
+  <div class="panel-body" id="panelBody"></div>
+  <div class="panel-foot" id="panelFoot"></div>
+</aside>
+<div class="scrim" id="scrim"></div>
+
+<div class="doorbell" id="doorbell" hidden></div>
+<div class="alarm" id="alarm" role="alert" hidden></div>
+<div class="ss" id="screensaver" hidden></div>
+<div class="offline" id="offline" hidden><span class="ic" data-icon="wifi-off"></span> Geen verbinding met de server, opnieuw verbinden…</div>
+
+<!-- Pop-up voor sliders (lang indrukken) -->
+<div class="popup-wrap" id="popupWrap" hidden>
+  <div class="popup" id="popup"></div>
+</div>
+
+<script src="/vendor/sortable/Sortable.min.js"></script>
+<script src="/graphics.js"></script>
+<script src="/app.js"></script>
+<script src="/extras.js"></script>
+<script src="/live.js"></script>
+</body>
+</html>

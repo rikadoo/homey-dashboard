@@ -1,0 +1,42 @@
+services:
+  homey-dashboard:
+    build: .
+    # Of gebruik het kant-en-klare image van GitHub in plaats van zelf bouwen:
+    # image: ghcr.io/rikadoo/homey-dashboard:latest
+    container_name: homey-dashboard
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      TZ: Europe/Amsterdam                     # voor afvaldata en uurgrafieken
+    volumes:
+      - ./data:/app/data                       # indeling, geschiedenis, gebeurtenissen
+      # - /mnt/nas/backups/dashboard:/backup   # dagelijkse back-up naar de NAS (BACKUP_DIR=/backup)
+      # - /mnt/nas/fotos:/app/photos:ro        # foto's voor de schermbeveiliging
+    ports:
+      - "8091:8080"                            # directe toegang als terugval
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+    networks:
+      - traefik_default
+
+  # Live camerabeeld: zet de RTSP-streams van UniFi Protect om voor de browser.
+  # Vul eerst go2rtc/go2rtc.yaml in (zie de uitleg in dat bestand).
+  go2rtc:
+    image: alexxit/go2rtc:latest
+    container_name: go2rtc
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Amsterdam
+    volumes:
+      - ./go2rtc/go2rtc.yaml:/config/go2rtc.yaml   # maak dit eerst van go2rtc.example.yaml
+    ports:
+      - "1984:1984"                            # streams voor het dashboard en de testpagina
+    networks:
+      - traefik_default
+
+networks:
+  traefik_default:
+    external: true
