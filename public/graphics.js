@@ -171,9 +171,9 @@ function chartRender(t) {
   const grid = [0.25, 0.5, 0.75].map(f => `<line x1="0" x2="100" y1="${4 + 92 * f}" y2="${4 + 92 * f}" class="gridline"/>`).join('')
     + (lo < 0 && hi > 0 ? `<line x1="0" x2="100" y1="${Y(0)}" y2="${Y(0)}" class="zero"/>` : '');
   const unit = t.unit || capInfo(series[0].deviceId, series[0].capability).units || '';
-  const f = v => Math.abs(v) >= 1000 ? `${(v / 1000).toLocaleString('nl-NL', { maximumFractionDigits: 1 })}k` : Math.round(v).toLocaleString('nl-NL');
+  const f = v => Math.abs(v) >= 1000 ? `${(v / 1000).toLocaleString(LOCALE, { maximumFractionDigits: 1 })}k` : Math.round(v).toLocaleString(LOCALE);
   const hh = hours > 48
-    ? ts => new Date(ts).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' })
+    ? ts => new Date(ts).toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' })
     : ts => `${String(new Date(ts).getHours()).padStart(2, '0')}:00`;
   const legend = data.map((s, i) => {
     const v = fmt({ deviceId: s.deviceId, capability: s.capability }, s.capability, stateOf(s.deviceId)[s.capability]);
@@ -234,7 +234,7 @@ function roomsRender(t) {
       <span class="room-name">${esc(z.name)}</span>
       ${z.motion ? `<span class="pill motion" title="Beweging">${icon('footprints')}</span>` : ''}
       ${z.lights ? `<span class="pill ${z.lightsOn ? 'lit' : ''}">${icon('lightbulb')}${z.lightsOn}</span>` : ''}
-      ${z.temp !== null ? `<span class="pill">${z.temp.toLocaleString('nl-NL', { maximumFractionDigits: 1 })}°</span>` : ''}
+      ${z.temp !== null ? `<span class="pill">${z.temp.toLocaleString(LOCALE, { maximumFractionDigits: 1 })}°</span>` : ''}
     </div>`;
   }).join('');
   return { cls: 'rooms-tile', html: `<div class="label">${esc(t.label || 'Ruimtes')}</div><div class="rooms">${rows || '<span class="sub">Nog geen ruimtes gevonden</span>'}</div>` };
@@ -255,7 +255,7 @@ function lightsOnCount() {
 function chipItems() {
   const items = [];
   const n = lightsOnCount();
-  items.push({ icon: 'lightbulb', color: CAT.light, label: n === 1 ? 'Lamp aan' : 'Lampen aan', value: String(n), lit: n > 0 });
+  items.push({ icon: 'lightbulb', color: CAT.light, label: tr(n === 1 ? 'Lamp aan' : 'Lampen aan'), value: String(n), lit: n > 0 });
   for (const t of chipTiles()) {
     const st = stateOf(t.deviceId);
     const v = fmt(t, t.capability || 'onoff', st[t.capability || 'onoff']);
@@ -319,7 +319,7 @@ function renderSide() {
     const cur = wmo(w.current.code, w.current.isDay);
     const days = w.daily.slice(1, 5).map(x => {
       const ww = wmo(x.code);
-      return `<div class="fc"><span>${new Date(x.date).toLocaleDateString('nl-NL', { weekday: 'short' })}</span>${icon(ww.icon)}
+      return `<div class="fc"><span>${new Date(x.date).toLocaleDateString(LOCALE, { weekday: 'short' })}</span>${icon(ww.icon)}
         <b>${Math.round(x.max)}°</b><small>${Math.round(x.min)}°</small></div>`;
     }).join('');
     return `<div class="side-card weather">
@@ -340,7 +340,7 @@ function renderSide() {
 
   side.innerHTML = `
     <div class="side-clock">${hhmm(d)}</div>
-    <div class="side-date">${cap1(d.toLocaleDateString('nl-NL', { weekday: 'long' }))}<br>${d.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long' })}</div>
+    <div class="side-date">${cap1(d.toLocaleDateString(LOCALE, { weekday: 'long' }))}<br>${d.toLocaleDateString(LOCALE, { day: 'numeric', month: 'long' })}</div>
     <div class="side-week">Week ${isoWeek(d)}</div>
     <div class="side-greet">${greeting(d.getHours())}</div>
     ${weather}

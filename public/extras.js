@@ -9,15 +9,15 @@ S.events = [];
 // Algemene hulpjes
 // ---------------------------------------------------------------------------
 const numv = v => typeof v === 'number' ? v : parseFloat(String(v ?? '').replace(',', '.'));
-const fmtNum = (v, dec = 0) => isFinite(v) ? v.toLocaleString('nl-NL', { minimumFractionDigits: dec, maximumFractionDigits: dec }) : '–';
+const fmtNum = (v, dec = 0) => isFinite(v) ? v.toLocaleString(LOCALE, { minimumFractionDigits: dec, maximumFractionDigits: dec }) : '–';
 const fmtW = w => !isFinite(w) ? '–' : Math.abs(w) >= 1000 ? `${fmtNum(w / 1000, 1)} kW` : `${fmtNum(w)} W`;
-const euro = v => isFinite(v) ? `€ ${v.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '–';
+const euro = v => isFinite(v) ? `€ ${v.toLocaleString(LOCALE, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '–';
 function ago(ts) {
   const m = Math.round((Date.now() - ts) / 60000);
   if (m < 1) return 'zojuist';
   if (m < 60) return `${m} min geleden`;
   const d = new Date(ts), today = new Date().toDateString() === d.toDateString();
-  return today ? hhmm(d) : `${d.toLocaleDateString('nl-NL', { weekday: 'short' })} ${hhmm(d)}`;
+  return today ? hhmm(d) : `${d.toLocaleDateString(LOCALE, { weekday: 'short' })} ${hhmm(d)}`;
 }
 const capOpts = (devId, value, filter, allowEmpty = true) => {
   const caps = device(devId)?.capabilities || {};
@@ -446,7 +446,7 @@ function tickScreensaver() {
   const el = $('#screensaver'); if (el.hidden) return;
   const d = new Date();
   el.querySelector('.ss-time').textContent = hhmm(d);
-  el.querySelector('.ss-date').textContent = cap1(d.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' }));
+  el.querySelector('.ss-date').textContent = cap1(d.toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long' }));
   const w = WEATHER.data;
   el.querySelector('.ss-weather').innerHTML = w ? `${icon(wmo(w.current.code, w.current.isDay).icon)} ${Math.round(w.current.temp)}° ${wmo(w.current.code).text.toLowerCase()}` : '';
   // Elke minuut een beetje verschuiven tegen inbranden
@@ -590,7 +590,7 @@ function dayText(n) {
   if (n === 0) return 'Vandaag';
   if (n === 1) return 'Morgen';
   const d = new Date(); d.setDate(d.getDate() + n);
-  return n < 7 ? cap1(d.toLocaleDateString('nl-NL', { weekday: 'long' })) : d.toLocaleDateString('nl-NL', { weekday: 'short', day: 'numeric', month: 'short' });
+  return n < 7 ? cap1(d.toLocaleDateString(LOCALE, { weekday: 'long' })) : d.toLocaleDateString(LOCALE, { weekday: 'short', day: 'numeric', month: 'short' });
 }
 // Korte namen voor lange omschrijvingen van de afvalkalender, zoals "Groente-, fruit en tuinafval"
 const WASTE_SHORT = [[/gft|groente|tuinafval|bio/i, 'GFT'], [/papier|karton/i, 'Papier'], [/pmd|plastic|blik|drinkpak|drankkarton|pbd/i, 'PMD'],
@@ -641,7 +641,7 @@ EXTRA_CHIPS.push(() => {
   const h = new Date().getHours();
   if (!d || !((d.n === 1 && h >= 16) || (d.n === 0 && h < 10))) return [];
   const st = wasteStyle(d.types[0]);
-  return [{ icon: st.icon, color: st.color, label: d.n === 1 ? 'morgen aan de straat' : 'vandaag aan de straat', value: d.types.join(', '), alert: true }];
+  return [{ icon: st.icon, color: st.color, label: tr(d.n === 1 ? 'morgen aan de straat' : 'vandaag aan de straat'), value: d.types.map(x => tr(x)).join(', '), alert: true }];
 });
 
 // ---------------------------------------------------------------------------

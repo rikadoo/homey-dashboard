@@ -236,7 +236,7 @@ function fmt(tile, capId, v) {
       if (cap.decimals !== null && cap.decimals !== undefined) dec = Math.min(dec, cap.decimals);
     }
     const minDec = unit === '°C' || unit === '°' ? Math.min(1, dec) : 0;
-    return { v: v.toLocaleString('nl-NL', { minimumFractionDigits: minDec, maximumFractionDigits: dec }), u: unit };
+    return { v: v.toLocaleString(LOCALE, { minimumFractionDigits: minDec, maximumFractionDigits: dec }), u: unit };
   }
   return { v: String(v), u: '' };
 }
@@ -369,7 +369,7 @@ const TYPES = {
             <div class="ctl-row"><button class="round" data-act="down">${icon('chevron-down')}</button>
             <button class="round" data-act="up">${icon('chevron-up')}</button></div></div>
           <div><div class="big">${esc(cur.v)}<small>°C</small></div>
-          <div class="label">${esc(t.label)}</div><div class="sub">Ingesteld op ${tgt == null ? '–' : tgt.toLocaleString('nl-NL')}°</div></div>`,
+          <div class="label">${esc(t.label)}</div><div class="sub">Ingesteld op ${tgt == null ? '–' : tgt.toLocaleString(LOCALE)}°</div></div>`,
       };
     },
     act(t, a) {
@@ -456,7 +456,7 @@ const TYPES = {
       const d = new Date();
       return {
         cls: 'clock-tile', html: `<div class="big">${hhmm(d)}</div>
-          ${t.showDate !== false ? `<div class="label">${d.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' })}</div>` : ''}`,
+          ${t.showDate !== false ? `<div class="label">${d.toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long' })}</div>` : ''}`,
       };
     },
   },
@@ -571,7 +571,7 @@ function wireSliders(root, t) {
     const out = root.querySelector(`[data-out="${cap}"]`);
     const send = () => setCap(t.deviceId, cap, Number(inp.value));
     inp.addEventListener('input', () => {
-      if (out) out.textContent = cap === 'target_temperature' ? `${Number(inp.value).toLocaleString('nl-NL')}°` : `${Math.round(inp.value * 100)}%`;
+      if (out) out.textContent = cap === 'target_temperature' ? `${Number(inp.value).toLocaleString(LOCALE)}°` : `${Math.round(inp.value * 100)}%`;
       const now = Date.now();
       clearTimeout(timer);
       if (now - last > 300) { last = now; send(); } else timer = setTimeout(send, 300);
@@ -599,7 +599,7 @@ function lightPopup(t) {
 function thermoPopup(t) {
   const st = stateOf(t.deviceId), cap = capInfo(t.deviceId, 'target_temperature');
   return `<h3>${esc(t.label)}</h3><div class="sub">Nu ${fmt(t, 'measure_temperature', st.measure_temperature).v}°C</div>
-    ${slider('target_temperature', 'Doeltemperatuur', st.target_temperature, { min: cap.min ?? 5, max: cap.max ?? 30, step: t.step || cap.step || 0.5, fmt: v => `${(v ?? 0).toLocaleString('nl-NL')}°` })}
+    ${slider('target_temperature', 'Doeltemperatuur', st.target_temperature, { min: cap.min ?? 5, max: cap.max ?? 30, step: t.step || cap.step || 0.5, fmt: v => `${(v ?? 0).toLocaleString(LOCALE)}°` })}
     <div class="actions"><button class="btn" data-close>Sluiten</button></div>`;
 }
 
@@ -664,7 +664,7 @@ function renderPages() {
   const nav = $('#pages');
   nav.innerHTML = S.layout.pages.map((p, i) =>
     `<button class="page-tab ${i === S.pageIdx ? 'active' : ''}" data-page="${i}">${icon(p.icon || 'house')}<span>${esc(p.name)}</span></button>`
-  ).join('') + (S.editing ? `<button class="page-tab add" data-addpage>${icon('plus')}<span>Pagina</span></button>` : '');
+  ).join('') + (S.editing ? `<button class="page-tab add" data-addpage>${icon('plus')}<span>${tr('Pagina')}</span></button>` : '');
   nav.querySelectorAll('[data-page]').forEach(b => b.onclick = () => goPage(+b.dataset.page));
   nav.querySelector('[data-addpage]')?.addEventListener('click', addPage);
 }
@@ -813,7 +813,7 @@ function updateSky() {
 function tickClock() {
   updateSky();
   const d = new Date();
-  $('#clock').innerHTML = `${hhmm(d)}<span class="clock-date">${d.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' })}</span>`;
+  $('#clock').innerHTML = `${hhmm(d)}<span class="clock-date">${d.toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long' })}</span>`;
   if (!S.layout || d.getMinutes() === lastMinute) return;
   lastMinute = d.getMinutes();
   renderSide();
@@ -887,7 +887,7 @@ $('#viewport').addEventListener('pointerup', e => {
 // ---------------------------------------------------------------------------
 $('#btnEdit').onclick = async () => {
   if (S.status.pinRequired && !S.token) {
-    openPopup({}, () => `<h3>Bewerken</h3><div class="sub">Voer de pincode in</div>
+    openPopup({}, () => `<h3>${tr('Bewerken')}</h3><div class="sub">Voer de pincode in</div>
       <input type="password" inputmode="numeric" id="pinInput" autocomplete="off">
       <div class="actions"><button class="btn" data-close>Annuleren</button><button class="btn primary" id="pinOk">Ontgrendelen</button></div>`,
     root => {
@@ -994,11 +994,11 @@ async function openAddPanel() {
       list = cat.moods.filter(m => match(m.name)).map(m => `<button class="pick" data-mood="${esc(m.id)}">${icon('sparkles')}
         <div class="meta"><div>${esc(m.name)}</div><div>${esc(m.zoneName)}</div></div>${icon('plus')}</button>`).join('') || '<p class="hint">Geen moods gevonden.</p>';
     } else {
-      list = `<button class="pick" data-extra="header">${icon('heading')}<div class="meta"><div>Kop</div><div>Tekst over de volle breedte om tegels te groeperen</div></div>${icon('plus')}</button>
-        ${Object.entries(TYPES).filter(([, v]) => v.addable).map(([k, v]) => `<button class="pick" data-extra="${k}">${icon(v.icon)}<div class="meta"><div>${v.name}</div><div>${v.addable.desc}</div></div>${icon('plus')}</button>`).join('')}
-        <button class="pick" data-extra="chart">${icon('chart-spline')}<div class="meta"><div>Grafiek</div><div>Verloop van één of meer waarden, bijvoorbeeld net en zon</div></div>${icon('plus')}</button>
-        <button class="pick" data-extra="rooms">${icon('layout-list')}<div class="meta"><div>Ruimtes</div><div>Overzicht per ruimte: lampen aan en temperatuur</div></div>${icon('plus')}</button>
-        <button class="pick" data-extra="clock">${icon('clock')}<div class="meta"><div>Klok</div><div>Tijd en datum</div></div>${icon('plus')}</button>`;
+      list = `<button class="pick" data-extra="header">${icon('heading')}<div class="meta"><div>${tr('Kop')}</div><div>Tekst over de volle breedte om tegels te groeperen</div></div>${icon('plus')}</button>
+        ${Object.entries(TYPES).filter(([, v]) => v.addable).map(([k, v]) => `<button class="pick" data-extra="${k}">${icon(v.icon)}<div class="meta"><div>${tr(v.name)}</div><div>${v.addable.desc}</div></div>${icon('plus')}</button>`).join('')}
+        <button class="pick" data-extra="chart">${icon('chart-spline')}<div class="meta"><div>${tr('Grafiek')}</div><div>Verloop van één of meer waarden, bijvoorbeeld net en zon</div></div>${icon('plus')}</button>
+        <button class="pick" data-extra="rooms">${icon('layout-list')}<div class="meta"><div>${tr('Ruimtes')}</div><div>Overzicht per ruimte: lampen aan en temperatuur</div></div>${icon('plus')}</button>
+        <button class="pick" data-extra="clock">${icon('clock')}<div class="meta"><div>${tr('Klok')}</div><div>Tijd en datum</div></div>${icon('plus')}</button>`;
     }
     $('#panelBody').querySelector('.list').innerHTML = list;
     $('#panelBody').querySelectorAll('.tabs button').forEach(b => b.classList.toggle('sel', b.dataset.tab === tab));
@@ -1015,11 +1015,11 @@ async function openAddPanel() {
     if (b.dataset.dev) t = suggestTile(device(b.dataset.dev));
     else if (b.dataset.flow) { const f = cat.flows.find(x => x.id === b.dataset.flow); t = { id: uid('t'), type: 'flow', flowId: f.id, flowKind: f.kind, label: f.name, icon: 'play', w: 1, h: 1 }; }
     else if (b.dataset.mood) { const m = cat.moods.find(x => x.id === b.dataset.mood); t = { id: uid('t'), type: 'mood', moodId: m.id, label: m.name, icon: 'sparkles', w: 1, h: 1 }; }
-    else if (b.dataset.extra === 'header') t = { id: uid('t'), type: 'header', label: 'Nieuwe kop', w: 'full', h: 1 };
-    else if (TYPES[b.dataset.extra]?.addable) t = { id: uid('t'), type: b.dataset.extra, label: TYPES[b.dataset.extra].name, icon: TYPES[b.dataset.extra].icon, ...TYPES[b.dataset.extra].addable.make() };
-    else if (b.dataset.extra === 'chart') t = { id: uid('t'), type: 'chart', label: 'Grafiek', icon: 'chart-spline', w: 4, h: 2, hours: 24, series: [] };
-    else if (b.dataset.extra === 'rooms') t = { id: uid('t'), type: 'rooms', label: 'Ruimtes', icon: 'layout-list', w: 2, h: 3 };
-    else if (b.dataset.extra === 'clock') t = { id: uid('t'), type: 'clock', label: 'Klok', w: 2, h: 1, showDate: true };
+    else if (b.dataset.extra === 'header') t = { id: uid('t'), type: 'header', label: tr('Nieuwe kop'), w: 'full', h: 1 };
+    else if (TYPES[b.dataset.extra]?.addable) t = { id: uid('t'), type: b.dataset.extra, label: tr(TYPES[b.dataset.extra].name), icon: TYPES[b.dataset.extra].icon, ...TYPES[b.dataset.extra].addable.make() };
+    else if (b.dataset.extra === 'chart') t = { id: uid('t'), type: 'chart', label: tr('Grafiek'), icon: 'chart-spline', w: 4, h: 2, hours: 24, series: [] };
+    else if (b.dataset.extra === 'rooms') t = { id: uid('t'), type: 'rooms', label: tr('Ruimtes'), icon: 'layout-list', w: 2, h: 3 };
+    else if (b.dataset.extra === 'clock') t = { id: uid('t'), type: 'clock', label: tr('Klok'), w: 2, h: 1, showDate: true };
     pushUndo();
     page().tiles.push(t);
     save(); renderGrid();

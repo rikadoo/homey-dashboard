@@ -1,6 +1,6 @@
 // Service worker: maakt het dashboard installeerbaar en laat de schil laden als de server even weg is.
-const CACHE = 'dash-v3';
-const SHELL = ['/', '/index.html', '/style.css', '/app.js', '/graphics.js', '/extras.js', '/live.js', '/vendor/sortable/Sortable.min.js', '/vendor/font/index.css'];
+const CACHE = 'dash-v4';
+const SHELL = ['/', '/index.html', '/style.css', '/app.js', '/i18n.js', '/graphics.js', '/extras.js', '/live.js', '/vendor/sortable/Sortable.min.js', '/vendor/font/index.css'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).catch(() => {}));
