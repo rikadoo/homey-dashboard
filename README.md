@@ -1,83 +1,88 @@
 <div align="center">
 
-# Homey tablet-dashboard
+# Homey tablet dashboard
 
-**Een zelfgehost wanddashboard voor Homey Pro dat je op het scherm zelf indeelt.**
+**A self-hosted wall dashboard for Homey Pro that you lay out on the screen itself.**
+
+**English** · [Nederlands](README.nl.md)
 
 ![Homey Pro](https://img.shields.io/badge/Homey-Pro-1fb6ff?logo=homey&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-ghcr.io-2496ed?logo=docker&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-20-5fa04e?logo=nodedotjs&logoColor=white)
-![Licentie](https://img.shields.io/badge/licentie-GPL--3.0-blue)
+![License](https://img.shields.io/badge/license-GPL--3.0-blue)
 
-<img src="docs/screenshots/home.jpg" alt="Het dashboard op een liggende tablet" width="100%">
+<img src="docs/screenshots/home.jpg" alt="The dashboard on a landscape tablet" width="100%">
 
 </div>
 
-Tegels toevoegen, verslepen, groter maken en instellen doe je allemaal op de tablet, zonder code. De indeling past zich aan elk scherm aan, van telefoon tot liggende of staande tablet. Waarden komen live binnen via de lokale Web API van de Homey, zonder cloud.
+Add, drag, resize and configure tiles right on the tablet, without touching code. The layout adapts to any screen, from phone to portrait or landscape tablet. Values arrive live through the Homey's local Web API, no cloud involved.
 
-## Inhoud
+> [!NOTE]
+> The interface is available in **English and Dutch**. On first start it follows the language of the browser; switch any time under **Settings → Language**. The screenshots show the Dutch interface.
 
-- [Wat het kan](#wat-het-kan)
+## Contents
+
+- [Features](#features)
 - [Screenshots](#screenshots)
-- [Installeren](#installeren)
-- [Instellingen in .env](#instellingen-in-env)
-- [Koppelingen](#koppelingen)
-- [Tablet instellen](#tablet-instellen)
-- [Uitproberen zonder Homey](#uitproberen-zonder-homey)
-- [Hoe het in elkaar zit](#hoe-het-in-elkaar-zit)
+- [Installation](#installation)
+- [Settings in .env](#settings-in-env)
+- [Integrations](#integrations)
+- [Setting up the tablet](#setting-up-the-tablet)
+- [Try it without a Homey](#try-it-without-a-homey)
+- [How it is built](#how-it-is-built)
 
-## Wat het kan
+## Features
 
 | | |
 |---|---|
-| 🎛️ **Bewerken op het scherm** | Tegels toevoegen uit je Homey-apparaten, flows en moods, verslepen, van grootte veranderen en per tegel instellen. Met ongedaan maken, pincode en export/import. |
-| 💡 **Lampen die gloeien** | Een brandende lamp kleurt zijn tegel in de echte lichtkleur. Lang indrukken opent helderheid, kleurtemperatuur en kleur. |
-| ⚡ **Energie** | Een geanimeerde energiestroom met zon, net, thuisaccu en huis, grafieken tot 30 dagen, boogmeters, kosten van vandaag en de verwachte jaarnota. |
-| 📷 **Camera's** | Momentopnames via Homey, live beeld via go2rtc, en een deurbel-pop-up met belgeluid die over alles heen verschijnt. |
-| 🏠 **Huis in één oogopslag** | Ruimtes met lampen en temperatuur, aanwezigheid, een tijdlijn van wat er gebeurde, batterijen die bijna leeg zijn, en de afvalkalender. |
-| 🧺 **Apparaten** | Wasmachine, droger, vaatwasser en 3D-printer met voortgangsring en een melding als ze klaar zijn. |
-| 🚨 **Alarm** | Waterlek, rook of koolmonoxide geeft een groot rood scherm met geluid. |
-| 🌙 **Dag en nacht** | De achtergrond kleurt mee met het tijdstip. 's Nachts dimt het scherm of toont het een klok, een dagoverzicht of een fotolijst. Per tijdvak kies je een andere startpagina. |
+| 🎛️ **Edit on screen** | Add tiles from your Homey devices, flows and moods, drag them, resize them and configure each one. With undo, PIN protection and export/import. |
+| 💡 **Lights that glow** | A light that is on colours its tile in its actual light colour. Long-press for brightness, colour temperature and colour. |
+| ⚡ **Energy** | An animated energy flow with solar, grid, home battery and house, charts up to 30 days, arc gauges, today's costs and the expected annual bill. |
+| 📷 **Cameras** | Snapshots via Homey, live video via go2rtc, and a doorbell pop-up with chime that appears on top of everything. |
+| 🏠 **Your home at a glance** | Rooms with lights and temperature, presence, a timeline of what happened, batteries running low, and the waste collection calendar. |
+| 🧺 **Appliances** | Washing machine, dryer, dishwasher and 3D printer with a progress ring and a notification when they are done. |
+| 🚨 **Alarm** | A water leak, smoke or carbon monoxide shows a large red screen with sound. |
+| 🌙 **Day and night** | The background follows the time of day. At night the screen dims or shows a clock, a daily overview or a photo frame. Pick a different start page per time slot. |
 
 ## Screenshots
 
 <table>
 <tr>
-<td width="50%"><img src="docs/screenshots/overzicht.jpg" alt="Energiestroom, kosten, apparaten, tijdlijn en onderhoud"><br><sub><b>Energiestroom en overzicht.</b> Stroom van zon, net en accu, kosten van vandaag, een wasmachine die klaar is, de tijdlijn en batterijen die bijna leeg zijn.</sub></td>
-<td width="50%"><img src="docs/screenshots/lamp.jpg" alt="Bediening van een lamp"><br><sub><b>Lamp bedienen.</b> Lang indrukken opent helderheid, kleurtemperatuur en kleur.</sub></td>
+<td width="50%"><img src="docs/screenshots/overzicht.jpg" alt="Energy flow, costs, appliances, timeline and maintenance"><br><sub><b>Energy flow and overview.</b> Power from solar, grid and battery, today's costs, a washing machine that just finished, the timeline and batteries running low.</sub></td>
+<td width="50%"><img src="docs/screenshots/lamp.jpg" alt="Light controls"><br><sub><b>Controlling a light.</b> Long-press for brightness, colour temperature and colour.</sub></td>
 </tr>
 <tr>
-<td><img src="docs/screenshots/bewerken.jpg" alt="Bewerkmodus met tegelinstellingen"><br><sub><b>Bewerkmodus.</b> Elke tegel heeft eigen instellingen: icoon, grootte, weergave, drempelkleuren en meer.</sub></td>
-<td><img src="docs/screenshots/deurbel.jpg" alt="Deurbel-pop-up"><br><sub><b>Deurbel.</b> Bij aanbellen verschijnt een groot (live) beeld met belgeluid.</sub></td>
+<td><img src="docs/screenshots/bewerken.jpg" alt="Edit mode with tile settings"><br><sub><b>Edit mode.</b> Every tile has its own settings: icon, size, display style, threshold colours and more.</sub></td>
+<td><img src="docs/screenshots/deurbel.jpg" alt="Doorbell pop-up"><br><sub><b>Doorbell.</b> When someone rings, a large (live) picture appears with a chime.</sub></td>
 </tr>
 <tr>
-<td><img src="docs/screenshots/klok.jpg" alt="Schermbeveiliging met klok"><br><sub><b>Schermbeveiliging.</b> 's Nachts een rustige klok met het weer, die langzaam verschuift tegen inbranden.</sub></td>
+<td><img src="docs/screenshots/klok.jpg" alt="Clock screensaver"><br><sub><b>Screensaver.</b> A calm clock with the weather at night, slowly moving to prevent burn-in.</sub></td>
 <td>
-<img src="docs/screenshots/tablet-staand.jpg" alt="Staande tablet" width="48%">
-<img src="docs/screenshots/telefoon.jpg" alt="Telefoon" width="40%"><br><sub><b>Elk scherm.</b> Staand, liggend of op de telefoon: de kolommen passen zich vanzelf aan.</sub>
+<img src="docs/screenshots/tablet-staand.jpg" alt="Portrait tablet" width="48%">
+<img src="docs/screenshots/telefoon.jpg" alt="Phone" width="40%"><br><sub><b>Any screen.</b> Portrait, landscape or phone: the columns adjust automatically.</sub>
 </td>
 </tr>
 </table>
 
-## Installeren
+## Installation
 
-Je hebt een server met Docker nodig (een NAS, mini-pc of Raspberry Pi) in hetzelfde netwerk als je Homey Pro.
+You need a server running Docker (a NAS, mini PC or Raspberry Pi) on the same network as your Homey Pro.
 
-**1. Maak een API-sleutel in Homey.** Ga in de Homey web-app ([my.homey.app](https://my.homey.app)) naar **Instellingen → API-sleutels** en geef de sleutel deze rechten:
+**1. Create an API key in Homey.** In the Homey web app ([my.homey.app](https://my.homey.app)) go to **Settings → API Keys** and give the key these permissions:
 
-- apparaten en zones bekijken, apparaten bedienen
-- flows bekijken en starten, moods gebruiken
-- gebruikers bekijken (voor de aanwezigheidstegel)
-- apps (voor de afvalkalender uit Trashcan Reminder)
+- view devices and zones, control devices
+- view and start flows, use moods
+- view users (for the presence tile)
+- apps (for the waste calendar from Trashcan Reminder)
 
-**2. Haal de bestanden op en vul de instellingen in.**
+**2. Get the files and fill in the settings.**
 
 ```bash
 git clone https://github.com/rikadoo/homey-dashboard.git
 cd homey-dashboard
 cp .env.example .env
 cp go2rtc/go2rtc.example.yaml go2rtc/go2rtc.yaml
-nano .env          # vul minstens HOMEY_ADDRESS en HOMEY_TOKEN in
+nano .env          # fill in at least HOMEY_ADDRESS and HOMEY_TOKEN
 ```
 
 **3. Start.**
@@ -87,59 +92,59 @@ docker compose up -d --build
 docker compose logs -f homey-dashboard
 ```
 
-In de log verschijnt `Verbonden, N apparaten gevolgd`. Open daarna `http://<server>:8091`.
+The log shows `Verbonden, N apparaten gevolgd` ("connected, N devices tracked"). Then open `http://<server>:8091`.
 
 > [!TIP]
-> Liever niet zelf bouwen? Gebruik het kant-en-klare image. Zet in `docker-compose.yml` een `#` voor `build: .`, haal het `#` weg voor `image: ghcr.io/rikadoo/homey-dashboard:latest` en draai `docker compose pull && docker compose up -d`.
+> Rather not build it yourself? Use the ready-made image. In `docker-compose.yml`, put a `#` in front of `build: .`, remove the `#` in front of `image: ghcr.io/rikadoo/homey-dashboard:latest` and run `docker compose pull && docker compose up -d`.
 
-**Bijwerken:** `git pull && docker compose up -d --build`. Je indeling, geschiedenis en instellingen staan in `data/` en `.env` en blijven bewaard.
+**Updating:** `git pull && docker compose up -d --build`. Your layout, history and settings live in `data/` and `.env` and are kept.
 
 > [!IMPORTANT]
-> De server moet de Homey kunnen bereiken op poort 80. Staat de Homey in een apart IoT-netwerk, sta dat verkeer dan toe in je firewall.
+> The server must be able to reach the Homey on port 80. If the Homey is on a separate IoT network, allow that traffic in your firewall.
 
-## Instellingen in .env
+## Settings in .env
 
-| Instelling | Verplicht | Wat het doet |
+| Setting | Required | What it does |
 |---|:---:|---|
-| `HOMEY_ADDRESS` | ✅ | Adres van je Homey Pro, bijvoorbeeld `http://192.168.1.50` |
-| `HOMEY_TOKEN` | ✅ | De API-sleutel uit stap 1. Leeg laten start de demo-modus. |
-| `EDIT_PIN` | | Pincode om de bewerkmodus te openen |
-| `ALLOWED_NETWORKS` | | Alleen toegang vanaf deze netwerken, bijvoorbeeld `192.168.1.0/24` |
-| `DASH_USER`, `DASH_PASS` | | Inloggen met gebruikersnaam en wachtwoord, één keer per apparaat |
-| `TRUST_PROXY` | | Zet op `1` achter een reverse proxy zoals Traefik |
-| `ENERGY_URL` | | Adres van een energiedashboard, voor de tegel "Energie vandaag" |
-| `BACKUP_DIR` | | Map voor een dagelijkse back-up van de indeling |
-| `PHOTOS_DIR` | | Map met foto's voor de fotolijst |
+| `HOMEY_ADDRESS` | ✅ | Address of your Homey Pro, e.g. `http://192.168.1.50` |
+| `HOMEY_TOKEN` | ✅ | The API key from step 1. Leave empty to start demo mode. |
+| `EDIT_PIN` | | PIN to open edit mode |
+| `ALLOWED_NETWORKS` | | Only allow access from these networks, e.g. `192.168.1.0/24` |
+| `DASH_USER`, `DASH_PASS` | | Log in with username and password, once per device |
+| `TRUST_PROXY` | | Set to `1` behind a reverse proxy such as Traefik |
+| `ENERGY_URL` | | Address of an energy dashboard, for the "Energy today" tile |
+| `BACKUP_DIR` | | Folder for a daily backup of the layout |
+| `PHOTOS_DIR` | | Folder with photos for the photo frame |
 
-Alles wat je op het scherm instelt (indeling, thema, weer, deurbel, schermbeveiliging) staat in `data/layout.json`, niet in `.env`.
+Everything you set on the screen (layout, theme, weather, doorbell, screensaver) is stored in `data/layout.json`, not in `.env`.
 
-## Koppelingen
+## Integrations
 
 <details>
-<summary><b>Live camerabeeld (go2rtc)</b></summary>
+<summary><b>Live camera video (go2rtc)</b></summary>
 
-Homey levert van camera's meestal alleen momentopnames. Voor live beeld start `docker compose` ook **go2rtc**, dat de RTSP-streams omzet naar beeld voor de browser.
+Homey usually only provides snapshots of cameras. For live video, `docker compose` also starts **go2rtc**, which converts RTSP streams into video the browser can play.
 
-1. Zet bij je camera's RTSP aan. Bij UniFi Protect: camera → Instellingen → Geavanceerd → RTSP(S) → "Gemiddeld".
-2. Zet de adressen in `go2rtc/go2rtc.yaml`, zoals in dat bestand uitgelegd.
-3. Test op `http://<server>:1984`: klik bij een stream op "stream".
-4. Vul bij de camera-tegel de streamnaam in. Tikken opent dan live beeld, ook in de deurbel-pop-up.
+1. Enable RTSP on your cameras. In UniFi Protect: camera → Settings → Advanced → RTSP(S) → "Medium".
+2. Put the addresses in `go2rtc/go2rtc.yaml`, as explained in that file.
+3. Test at `http://<server>:1984`: click "stream" next to a stream.
+4. Enter the stream name in the camera tile. Tapping the camera then opens live video, including in the doorbell pop-up.
 
-Open je het dashboard via https, maak dan ook voor go2rtc een https-route en vul dat adres in bij Instellingen. go2rtc heeft zelf geen wachtwoord, dus houd die route intern.
+If you open the dashboard over https, also create an https route for go2rtc and enter that address in the settings. go2rtc has no password of its own, so keep that route internal.
 
 </details>
 
 <details>
-<summary><b>Afvalkalender</b></summary>
+<summary><b>Waste collection calendar</b></summary>
 
-De afvaltegel haalt de ophaaldagen uit de Homey-app **Trashcan Reminder** (com.trashchecker). Er hoeft niets ingevuld te worden. Heeft je gemeente een iCal-link, dan kun je die bij Instellingen invullen; die gaat dan voor.
+The waste tile reads the collection days from the Homey app **Trashcan Reminder** (com.trashchecker), so nothing needs to be entered. If your municipality offers an iCal link, you can enter it in the settings; it then takes precedence.
 
 </details>
 
 <details>
-<summary><b>Energiedashboard</b></summary>
+<summary><b>Energy dashboard</b></summary>
 
-De tegel "Energie vandaag" en de schermbeveiliging "Overzicht" tonen opwek, verbruik, zelfvoorzienendheid, kosten en de verwachte jaarnota uit een energiedashboard. Zet het adres in `ENERGY_URL`. Draaien beide containers in hetzelfde Docker-netwerk, dan werkt de containernaam als adres, bijvoorbeeld `http://energie-dashboard:8080`.
+The "Energy today" tile and the "Overview" screensaver show production, consumption, self-sufficiency, costs and the expected annual bill from an energy dashboard such as [homey-energie-dashboard](https://github.com/rikadoo/homey-energie-dashboard). Set its address in `ENERGY_URL`. If both containers share a Docker network, the container name works as the address, e.g. `http://energie-dashboard:8080`.
 
 </details>
 
@@ -150,7 +155,7 @@ De tegel "Energie vandaag" en de schermbeveiliging "Overzicht" tonen opwek, verb
 http:
   routers:
     homey-dashboard:
-      rule: "Host(`dashboard.example.nl`)"
+      rule: "Host(`dashboard.example.com`)"
       entryPoints: [websecure]
       tls: {}
       service: homey-dashboard
@@ -161,57 +166,58 @@ http:
           - url: "http://homey-dashboard:8080"
 ```
 
-WebSockets werken zonder extra instellingen. Zet `TRUST_PROXY=1` in `.env`.
+WebSockets work without extra configuration. Set `TRUST_PROXY=1` in `.env`.
 
 </details>
 
 <details>
-<summary><b>Monitoring en back-ups</b></summary>
+<summary><b>Monitoring and backups</b></summary>
 
-- `/health` geeft status 200 als de Homey verbonden is en 503 als dat niet zo is. Docker gebruikt dit zelf, en je kunt het in Uptime Kuma zetten.
-- Met `BACKUP_DIR` wordt elke dag een kopie van de indeling gemaakt; de laatste 30 blijven bewaard. Daarnaast staan de laatste 20 versies in `data/backups/`.
-- Grafieken worden bij de start aangevuld uit Homey Insights, zodat ze meteen gevuld zijn.
+- `/health` returns status 200 when the Homey is connected and 503 when it is not. Docker uses it itself, and you can add it to Uptime Kuma.
+- With `BACKUP_DIR` a copy of the layout is made every day; the last 30 are kept. The last 20 versions are also kept in `data/backups/`.
+- Charts are filled from Homey Insights at startup, so they show history right away.
 
 </details>
 
-## Tablet instellen
+## Setting up the tablet
 
-- **Android:** gebruik [Fully Kiosk Browser](https://www.fully-kiosk.com) met de URL van het dashboard, en zet "Keep screen on" en "Launch on boot" aan.
-- **iPad:** open de pagina in Safari, kies "Zet op beginscherm" en gebruik Begeleide toegang om het scherm vast te zetten.
-- **Trage tablet?** Zet bij Instellingen "Minder vervaging" aan. Dat scheelt veel rekenkracht.
+- **Android:** use [Fully Kiosk Browser](https://www.fully-kiosk.com) with the dashboard URL and enable "Keep screen on" and "Launch on boot".
+- **iPad:** open the page in Safari, choose "Add to Home Screen" and use Guided Access to lock the screen.
+- **Slow tablet?** Enable "Less blur" in the settings. That saves a lot of processing power.
 
-Het dashboard is te installeren als app. Als de server even weg is, verschijnt een rode melding en herstelt de pagina zichzelf.
+The dashboard can be installed as an app. If the server is briefly unavailable, a red notice appears and the page recovers by itself.
 
-## Uitproberen zonder Homey
+## Try it without a Homey
 
 ```bash
 npm install
 npm run demo
 ```
 
-Open `http://localhost:8080`. Je krijgt een demo-indeling met nep-apparaten die live veranderen; de screenshots hierboven komen daaruit.
+Open `http://localhost:8080`. You get a demo layout with fake devices that change live; the screenshots above come from it.
 
-## Hoe het in elkaar zit
+## How it is built
 
-| Bestand | Wat het doet |
+| File | What it does |
 |---|---|
-| `server.js` | Webserver, opslag van de indeling, WebSocket voor live updates |
-| `lib/homey.js` | Verbinding met de Homey via de lokale Web API |
-| `lib/history.js` | Geschiedenis voor grafieken, aangevuld uit Homey Insights |
-| `lib/events.js` | Tijdlijn, apparaten die klaar zijn, deurbel |
-| `lib/energy.js`, `lib/waste.js`, `lib/weather.js` | Energiedashboard, afvalkalender en weer (Open-Meteo) |
-| `lib/security.js` | Toegang per netwerk en inloggen |
-| `lib/mock.js` | Demo-apparaten voor uitproberen zonder Homey |
-| `public/app.js` | Tegels, bediening en de bewerkmodus |
-| `public/graphics.js` | Grafieken, meters, zijpaneel en statusbalk |
-| `public/extras.js` | Energiestroom, apparaten, groepen, deurbel, schermbeveiliging en meer |
-| `public/live.js` | Live camerabeeld via go2rtc |
-| `public/style.css` | Uiterlijk; de kleuren staan bovenaan als variabelen |
+| `server.js` | Web server, layout storage, WebSocket for live updates |
+| `lib/homey.js` | Connection to the Homey via the local Web API |
+| `lib/history.js` | History for charts, filled from Homey Insights |
+| `lib/events.js` | Timeline, finished appliances, doorbell |
+| `lib/energy.js`, `lib/waste.js`, `lib/weather.js` | Energy dashboard, waste calendar and weather (Open-Meteo) |
+| `lib/security.js` | Access per network and login |
+| `lib/mock.js` | Demo devices for trying it without a Homey |
+| `public/app.js` | Tiles, controls and edit mode |
+| `public/graphics.js` | Charts, gauges, side panel and status bar |
+| `public/extras.js` | Energy flow, appliances, groups, doorbell, screensaver and more |
+| `public/i18n.js` | Language: English translation layer, dates and numbers per language |
+| `public/live.js` | Live camera video via go2rtc |
+| `public/style.css` | Styling; colours are defined as variables at the top |
 
-Een eigen tegeltype voeg je toe in `TYPES`: elk type heeft een `render`-functie en optioneel `tap`, `hold`, `settings` en `onInput`.
+Add your own tile type in `TYPES`: each type has a `render` function and optionally `tap`, `hold`, `settings` and `onInput`.
 
-**Gebouwd met** [homey-api](https://github.com/athombv/node-homey-api), [Express](https://expressjs.com), [ws](https://github.com/websockets/ws), [SortableJS](https://sortablejs.github.io/Sortable/), [Lucide](https://lucide.dev)-iconen, het lettertype [Figtree](https://fonts.google.com/specimen/Figtree), weer van [Open-Meteo](https://open-meteo.com) en [go2rtc](https://github.com/AlexxIT/go2rtc).
+**Built with** [homey-api](https://github.com/athombv/node-homey-api), [Express](https://expressjs.com), [ws](https://github.com/websockets/ws), [SortableJS](https://sortablejs.github.io/Sortable/), [Lucide](https://lucide.dev) icons, the [Figtree](https://fonts.google.com/specimen/Figtree) typeface, weather from [Open-Meteo](https://open-meteo.com) and [go2rtc](https://github.com/AlexxIT/go2rtc).
 
-## Licentie
+## License
 
-GPL-3.0, zie [`LICENSE`](LICENSE). Het dashboard gebruikt de officiële bibliotheek `homey-api` van Athom, die ook onder GPL-3.0 valt.
+GPL-3.0, see [`LICENSE`](LICENSE). The dashboard uses Athom's official `homey-api` library, which is also licensed under GPL-3.0.
