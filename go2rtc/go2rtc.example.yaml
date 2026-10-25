@@ -1,17 +1,18 @@
-# Kopieer dit bestand naar go2rtc.yaml en vul je eigen adressen in.
-# go2rtc.yaml staat in .gitignore: de codes in de RTSP-adressen geven toegang tot je camera's.
-
-# Vervang UNIFI_IP en de codes door de RTSP-adressen uit UniFi Protect:
-#   Protect > camera > Instellingen > Geavanceerd > RTSP(S) > zet "Gemiddeld" aan en kopieer het adres.
-# Je krijgt iets als  rtsps://192.168.1.1:7441/AbCdEf123?enableSrtp
-# Schrijf het hier als rtspx://192.168.1.1:7441/AbCdEf123  (rtspx, en zonder ?enableSrtp)
+# Copy this file to go2rtc.yaml and fill in your own camera addresses.
+# go2rtc.yaml is in .gitignore: the codes in RTSP addresses give access to your cameras.
+#
+# UniFi Protect: camera > Settings > Advanced > RTSP(S) > enable "Medium" and copy the address.
+# You get something like  rtsps://192.168.1.1:7441/AbCdEf123?enableSrtp
+# Write it here as        rtspx://192.168.1.1:7441/AbCdEf123   (rtspx, without ?enableSrtp)
+# Other cameras: use their regular rtsp:// address.
+#
+# The names on the left (doorbell, garden, ...) are what you enter as "Live stream" in a camera tile.
 
 api:
   listen: ":1984"
-  origin: "*"          # het dashboard mag de streams insluiten
+  origin: "*"          # allow the dashboard to embed the streams
 
 streams:
-  deurbel:    rtspx://UNIFI_IP:7441/CODE_DEURBEL
-  g4_bullet:  rtspx://UNIFI_IP:7441/CODE_G4_BULLET
-  g4_dome:    rtspx://UNIFI_IP:7441/CODE_G4_DOME
-  g3_instant: rtspx://UNIFI_IP:7441/CODE_G3_INSTANT
+  doorbell: rtspx://UNIFI_IP:7441/CODE_DOORBELL
+  garden:   rtspx://UNIFI_IP:7441/CODE_GARDEN
+  driveway: rtsp://user:password@192.168.1.20:554/stream1
