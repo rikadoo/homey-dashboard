@@ -15,7 +15,7 @@
 
 </div>
 
-Tegels toevoegen, verslepen, groter maken en instellen doe je allemaal op de tablet, zonder code. De interface is er in het Nederlands en het Engels: bij de eerste start volgt hij de taal van de browser, en bij **Instellingen → Taal** schakel je om. De indeling past zich aan elk scherm aan, van telefoon tot liggende of staande tablet. Waarden komen live binnen via de lokale Web API van de Homey, zonder cloud.
+Tegels toevoegen, verslepen, groter maken en instellen doe je allemaal op de tablet, zonder code. Tik op het potlood voor de bewerkmodus, tik dan op een tegel om hem aan te passen of te verwijderen, of houd hem vast en sleep om hem te verplaatsen. De interface is er in het Nederlands en het Engels: bij de eerste start volgt hij de taal van de browser, en bij **Instellingen → Taal** schakel je om. De indeling past zich aan elk scherm aan, van telefoon tot liggende of staande tablet. Waarden komen live binnen via de lokale Web API van de Homey, zonder cloud.
 
 ## Inhoud
 
@@ -92,7 +92,7 @@ docker compose logs -f homey-dashboard
 In de log verschijnt `Verbonden, N apparaten gevolgd`. Open daarna `http://<server>:8091`.
 
 > [!TIP]
-> Liever niet zelf bouwen? Gebruik het kant-en-klare image. Zet in `docker-compose.yml` een `#` voor `build: .`, haal het `#` weg voor `image: ghcr.io/rikadoo/homey-dashboard:latest` en draai `docker compose pull && docker compose up -d`.
+> **Optioneel: het kant-en-klare image gebruiken in plaats van zelf bouwen.** Aan het dashboard zelf verandert hierdoor niets; het slaat alleen het bouwen op je server over en maakt bijwerken sneller. Zet in `docker-compose.yml` een `#` voor `build: .`, haal het `#` weg voor `image: ghcr.io/rikadoo/homey-dashboard:latest` en draai `docker compose pull && docker compose up -d`. Bijwerken doe je later met hetzelfde commando.
 
 **Bijwerken:** `git pull && docker compose up -d --build`. Je indeling, geschiedenis en instellingen staan in `data/` en `.env` en blijven bewaard.
 

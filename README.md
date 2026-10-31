@@ -15,7 +15,7 @@
 
 </div>
 
-Add, drag, resize and configure tiles right on the tablet, without touching code. The layout adapts to any screen, from phone to portrait or landscape tablet. Values arrive live through the Homey's local Web API, no cloud involved.
+Add, drag, resize and configure tiles right on the tablet, without touching code. Tap the pencil to enter edit mode, then tap a tile to change or delete it, or hold and drag it to move it. The layout adapts to any screen, from phone to portrait or landscape tablet. Values arrive live through the Homey's local Web API, no cloud involved.
 
 > [!NOTE]
 > The interface is available in **English and Dutch**. On first start it follows the language of the browser; switch any time under **Settings → Language**. The screenshots show the Dutch interface.
@@ -95,7 +95,7 @@ docker compose logs -f homey-dashboard
 The log shows `Verbonden, N apparaten gevolgd` ("connected, N devices tracked"). Then open `http://<server>:8091`.
 
 > [!TIP]
-> Rather not build it yourself? Use the ready-made image. In `docker-compose.yml`, put a `#` in front of `build: .`, remove the `#` in front of `image: ghcr.io/rikadoo/homey-dashboard:latest` and run `docker compose pull && docker compose up -d`.
+> **Optional: use the ready-made image instead of building.** This does not change the dashboard itself; it only skips the build step on your server and makes updating quicker. In `docker-compose.yml`, put a `#` in front of `build: .`, remove the `#` in front of `image: ghcr.io/rikadoo/homey-dashboard:latest` and run `docker compose pull && docker compose up -d`. To update later, run the same command again.
 
 **Updating:** `git pull && docker compose up -d --build`. Your layout, history and settings live in `data/` and `.env` and are kept.
 

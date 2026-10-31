@@ -544,6 +544,7 @@ function startCamPopup(root) {
 }
 
 function openPopup(t, builder, after) {
+  openPopup.at = Date.now();
   S.popupTile = t;
   const root = $('#popup');
   root.classList.remove('wide');
@@ -554,7 +555,7 @@ function openPopup(t, builder, after) {
   after?.(root);
 }
 function closePopup() { $('#popupWrap').hidden = true; S.popupTile = null; clearInterval(S.camTimer); $('#popup').classList.remove('wide'); }
-$('#popupWrap').addEventListener('click', e => { if (e.target.id === 'popupWrap') closePopup(); });
+$('#popupWrap').addEventListener('click', e => { if (e.target.id === 'popupWrap' && Date.now() - (openPopup.at || 0) > 500) closePopup(); });
 
 function slider(capId, label, value, opts = {}) {
   const min = opts.min ?? 0, max = opts.max ?? 1, step = opts.step ?? 0.01;
@@ -956,6 +957,7 @@ function addPage() {
 // Paneel
 // ---------------------------------------------------------------------------
 function openPanel(title, body, foot = '') {
+  openPanel.at = Date.now();
   $('#panelTitle').textContent = title;
   $('#panelBody').innerHTML = body;
   $('#panelFoot').innerHTML = foot;
@@ -969,7 +971,8 @@ function closePanel() {
   $('#panel').setAttribute('aria-hidden', 'true');
 }
 $('#panelClose').onclick = closePanel;
-$('#scrim').onclick = closePanel;
+// Op een touchscreen komt de "click" pas na het openen binnen en zou het paneel meteen weer sluiten
+$('#scrim').onclick = () => { if (Date.now() - (openPanel.at || 0) > 500) closePanel(); };
 
 // --- Tegel toevoegen ---
 async function openAddPanel() {
