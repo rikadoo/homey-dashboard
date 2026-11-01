@@ -41,6 +41,7 @@ Add, drag, resize and configure tiles right on the tablet, without touching code
 | 📷 **Cameras** | Snapshots via Homey, live video via go2rtc, and a doorbell pop-up with chime that appears on top of everything. |
 | 🏠 **Your home at a glance** | Rooms with lights and temperature, presence, a timeline of what happened, batteries running low, and the waste collection calendar. |
 | 🧺 **Appliances** | Washing machine, dryer, dishwasher and 3D printer with a progress ring and a notification when they are done. |
+| 🚗 **Electric car** | Charge level, range and charging status with an animated battery, lock status, climate, 12V battery and location on a map. Lock, unlock, start the climate or charging from the tablet. Works with any car brand in Homey: common apps are recognised automatically (e.g. Hyundai/Kia Bluelink), and in the tile settings you can link each part (range, climate, odometer, …) to your own car's values. |
 | 🚨 **Alarm** | A water leak, smoke or carbon monoxide shows a large red screen with sound. |
 | 🌙 **Day and night** | The background follows the time of day. At night the screen dims or shows a clock, a daily overview or a photo frame. Pick a different start page per time slot. |
 
@@ -212,6 +213,7 @@ Open `http://localhost:8080`. You get a demo layout with fake devices that chang
 | `public/extras.js` | Energy flow, appliances, groups, doorbell, screensaver and more |
 | `public/i18n.js` | Language: English translation layer, dates and numbers per language |
 | `public/live.js` | Live camera video via go2rtc |
+| `public/car.js` | Electric car tile |
 | `public/style.css` | Styling; colours are defined as variables at the top |
 
 Add your own tile type in `TYPES`: each type has a `render` function and optionally `tap`, `hold`, `settings` and `onInput`.

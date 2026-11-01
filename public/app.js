@@ -466,6 +466,7 @@ function suggestTile(d) {
   const c = d.capabilities;
   const base = { id: uid('t'), deviceId: d.id, label: d.name, w: 1, h: 1 };
   if (d.images && ['camera', 'doorbell'].includes(d.class)) return { ...base, type: 'camera', icon: 'cctv', w: 2, h: 2 };
+  if (['vehicle', 'car'].includes(d.class) || c.ev_charging_state) return { ...base, type: 'car', icon: 'car-front', w: 2, h: 2 };
   if (c.windowcoverings_set || c.windowcoverings_state) return { ...base, type: 'blinds', icon: 'blinds', w: 2 };
   if (c.target_temperature) return { ...base, type: 'thermostat', icon: 'thermometer', w: 2 };
   if (c.onoff && (c.dim || d.class === 'light' || d.virtualClass === 'light')) return { ...base, type: 'light', icon: 'lightbulb' };

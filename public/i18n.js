@@ -282,7 +282,9 @@ const I18N = (() => {
     return changed;
   }
 
-  return { tr, apply, detect, get lang() { return LANG; } };
+  // Uitbreidingen kunnen eigen vertalingen toevoegen
+  const add = (dict, patterns = []) => { Object.assign(EN, dict); PATTERNS.unshift(...patterns); };
+  return { tr, apply, detect, add, get lang() { return LANG; } };
 })();
 const tr = I18N.tr;
 

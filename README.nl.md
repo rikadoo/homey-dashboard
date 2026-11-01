@@ -38,6 +38,7 @@ Tegels toevoegen, verslepen, groter maken en instellen doe je allemaal op de tab
 | 📷 **Camera's** | Momentopnames via Homey, live beeld via go2rtc, en een deurbel-pop-up met belgeluid die over alles heen verschijnt. |
 | 🏠 **Huis in één oogopslag** | Ruimtes met lampen en temperatuur, aanwezigheid, een tijdlijn van wat er gebeurde, batterijen die bijna leeg zijn, en de afvalkalender. |
 | 🧺 **Apparaten** | Wasmachine, droger, vaatwasser en 3D-printer met voortgangsring en een melding als ze klaar zijn. |
+| 🚗 **Elektrische auto** | Laadniveau, bereik en laadstatus met een bewegende accu, slot, klimaat, 12V-accu en locatie op een kaart. Vergrendelen, ontgrendelen, klimaat of laden starten vanaf de tablet. Werkt met elk automerk in Homey: gangbare apps worden zelf herkend (zoals Hyundai/Kia Bluelink), en in de tegelinstellingen koppel je per onderdeel (bereik, klimaat, kilometerstand, …) de juiste waarde van je eigen auto. |
 | 🚨 **Alarm** | Waterlek, rook of koolmonoxide geeft een groot rood scherm met geluid. |
 | 🌙 **Dag en nacht** | De achtergrond kleurt mee met het tijdstip. 's Nachts dimt het scherm of toont het een klok, een dagoverzicht of een fotolijst. Per tijdvak kies je een andere startpagina. |
 
@@ -209,6 +210,7 @@ Open `http://localhost:8080`. Je krijgt een demo-indeling met nep-apparaten die 
 | `public/extras.js` | Energiestroom, apparaten, groepen, deurbel, schermbeveiliging en meer |
 | `public/i18n.js` | Taal: de Engelse vertaling, en datums en getallen per taal |
 | `public/live.js` | Live camerabeeld via go2rtc |
+| `public/car.js` | Tegel voor de elektrische auto |
 | `public/style.css` | Uiterlijk; de kleuren staan bovenaan als variabelen |
 
 Een eigen tegeltype voeg je toe in `TYPES`: elk type heeft een `render`-functie en optioneel `tap`, `hold`, `settings` en `onInput`.

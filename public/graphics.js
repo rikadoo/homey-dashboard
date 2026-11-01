@@ -26,6 +26,7 @@ function tileColor(t) {
     case 'rooms': return CAT.light;
     case 'camera': return CAT.contact;
     case 'appliance': return '#38bdf8';
+    case 'car': return '#22d3ee';
     case 'group': return t.color || CAT.light;
     case 'remote': return CAT.media;
     case 'energyflow': case 'costs': return CAT.power;

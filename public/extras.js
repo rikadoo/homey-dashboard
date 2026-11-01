@@ -218,8 +218,8 @@ TYPES.group = {
 // ---------------------------------------------------------------------------
 // 4. Tijdlijn van gebeurtenissen
 // ---------------------------------------------------------------------------
-const EV_COLORS = { contact: '#a78bfa', motion: '#38bdf8', post: '#fbbf24', vibration: '#fbbf24', appliance: '#34d399', doorbell: '#f472b6', water: '#22d3ee', smoke: '#f87171' };
-const EV_KINDS = [['contact', 'Deuren'], ['motion', 'Beweging'], ['post', 'Post'], ['appliance', 'Apparaten'], ['doorbell', 'Deurbel'], ['water', 'Waterlek']];
+const EV_COLORS = { car: '#22d3ee', contact: '#a78bfa', motion: '#38bdf8', post: '#fbbf24', vibration: '#fbbf24', appliance: '#34d399', doorbell: '#f472b6', water: '#22d3ee', smoke: '#f87171' };
+const EV_KINDS = [['car', 'Auto'], ['contact', 'Deuren'], ['motion', 'Beweging'], ['post', 'Post'], ['appliance', 'Apparaten'], ['doorbell', 'Deurbel'], ['water', 'Waterlek']];
 TYPES.timeline = {
   name: 'Tijdlijn', icon: 'history',
   addable: { desc: 'Wat er in huis gebeurde: deuren, post, apparaten, deurbel', make: () => ({ w: 2, h: 3, hideKinds: ['motion'] }) },
